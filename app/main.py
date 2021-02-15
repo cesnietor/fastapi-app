@@ -1,8 +1,17 @@
 from fastapi import FastAPI, status, Request
 from credit_policies.policies import policy_0, not_found_json_response, policy_check_responses
 from credit_policies.models import CheckCredPolicyRequest, Message
+from starlette.responses import RedirectResponse
 
 app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    """
+        Redirects to `/docs`
+    """
+    return RedirectResponse(url="/docs")
 
 
 @app.post("/check_policy/{policy_id}",
